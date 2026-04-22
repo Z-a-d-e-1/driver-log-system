@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Routes - Metroline{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h2>Available Routes</h2>
+    <p>Select a route to view route details.</p>
+</div>
+
+<div class="routes-grid">
+    {% if routes %}
+        {% for route in routes %}
+            <div class="card route-card">
+                <h3>Route {{ route.route_number }}</h3>
+                <p><strong>Start:</strong> {{ route.start_point }}</p>
+                <p><strong>End:</strong> {{ route.end_point }}</p>
+                <p><strong>Notes:</strong> {{ route.notes }}</p>
+
+                <a href="{{ url_for('route_detail', route_id=route.id) }}" class="btn">
+                    View Details
+                </a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card">
+            <p>No routes found in the system.</p>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

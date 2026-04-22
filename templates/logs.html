@@ -1,0 +1,20 @@
+<div class="card">
+    <h2>Driver Logs</h2>
+
+    {% if logs %}
+        {% for log in logs %}
+            <div class="log-item">
+                <p><strong>Time:</strong> {{ log.time }}</p>
+                <p><strong>Route:</strong> {{ log.route_number }}</p>
+                <p><strong>Running No:</strong> {{ log.running_no }}</p>
+                <p><strong>Fleet No:</strong> {{ log.fleet_no }}</p>
+                <p><strong>Duty:</strong> {{ log.duty }}</p>
+                <p><strong>Employee:</strong> {{ log.employee_no }}</p>
+                <p><strong>Sign On:</strong> {{ log.sign_on }}</p>
+                <p><strong>Sign Off:</strong> {{ log.sign_off }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No logs submitted yet.</p>
+    {% endif %}
+</div>

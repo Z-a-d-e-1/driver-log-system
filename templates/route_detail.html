@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Driver Log System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        🚍 Metroline Driver Log System
+    </header>
+
+    <div class="container">
+
+        <div class="card">
+            <h2>Route {{ route_id }}</h2>
+            <p><strong>Start:</strong> {{ route.start }}</p>
+            <p><strong>End:</strong> {{ route.end }}</p>
+            <p><strong>Notes:</strong> {{ route.notes }}</p>
+        </div>
+
+        <div class="card">
+            <!-- your large digital log form goes here -->
+        </div>
+
+        <div class="card">
+            <h3>Driver Logs</h3>
+
+            {% if logs and logs|length > 0 %}
+                {% for log in logs %}
+                    <div class="log-item">
+                        <p><strong>Logged At:</strong> {{ log.time }}</p>
+                        <p><strong>Route:</strong> {{ log.route_number }}</p>
+                        <p><strong>Running No:</strong> {{ log.running_no }}</p>
+                        <p><strong>Fleet No:</strong> {{ log.fleet_no }}</p>
+                        <p><strong>Duty:</strong> {{ log.duty }}</p>
+                        <p><strong>Employee No:</strong> {{ log.employee_no }}</p>
+                        <p><strong>Sign On:</strong> {{ log.sign_on }}</p>
+                        <p><strong>Sign Off:</strong> {{ log.sign_off }}</p>
+                        <p><strong>First Spell Take Over:</strong> {{ log.first_spell_takeover }}</p>
+                        <p><strong>Second Spell Take Over:</strong> {{ log.second_spell_takeover }}</p>
+                        <p><strong>Curtailment Point:</strong> {{ log.curtailment_point }}</p>
+                        <p><strong>Off Bus Point:</strong> {{ log.off_bus_point }}</p>
+                        <p><strong>Off Bus Time:</strong> {{ log.off_bus_time }}</p>
+                        <p><strong>Stand Time Accumulated:</strong> {{ log.stand_time_accumulated }}</p>
+
+                        <p><strong>Trip No:</strong> {{ log.trip_no }}</p>
+                        <p><strong>Ty No:</strong> {{ log.ty_no }}</p>
+                        <p><strong>Run No:</strong> {{ log.run_no }}</p>
+                        <p><strong>Time Stopped:</strong> {{ log.time_stopped }}</p>
+                        <p><strong>Time Resumed:</strong> {{ log.time_resumed }}</p>
+                        <p><strong>Mileage From:</strong> {{ log.mileage_from }}</p>
+                        <p><strong>Mileage To:</strong> {{ log.mileage_to }}</p>
+                        <p><strong>Single/Return Journey:</strong> {{ log.single_return_journey }}</p>
+                        <p><strong>Reason for Curtailment:</strong> {{ log.reason_for_curtailment }}</p>
+                        <p><strong>Curtailment No:</strong> {{ log.curtailment_no }}</p>
+                        <p><strong>Lost Mileage Code:</strong> {{ log.lost_mileage_code }}</p>
+
+                        <p><strong>Bus Substituted Time:</strong> {{ log.substitute_time }}</p>
+                        <p><strong>Bus Substituted Location:</strong> {{ log.substitute_location }}</p>
+                        <p><strong>Subsequent Type/No:</strong> {{ log.subsequent_type_no }}</p>
+                        <p><strong>Vehicle Weight:</strong> {{ log.vehicle_weight }}</p>
+
+                        <p><strong>Continuous Driving Time:</strong> {{ log.continuous_driving_time }}</p>
+                        <p><strong>Stand Time Due:</strong> {{ log.stand_time_due }}</p>
+                        <p><strong>Driving Hours Check:</strong> {{ log.driving_hours_check }}</p>
+
+                        <p><strong>General Notes:</strong> {{ log.note }}</p>
+                        <hr>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No logs yet.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <a href="{{ url_for('view_routes') }}" class="button-link">Back to Routes</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

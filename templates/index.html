@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Metroline{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h2>Cricklewood Driver Digital Log System</h2>
+    <p>Welcome to the Metroline operational dashboard.</p>
+    <p>Drivers can submit daily log records, and supervisors can review recent activity.</p>
+</div>
+
+<div class="card">
+    <h3>Quick Actions</h3>
+    <div class="button-group">
+        <a href="{{ url_for('routes_page') }}" class="btn">View Routes</a>
+        <a href="{{ url_for('add_log') }}" class="btn">Add Log</a>
+        <a href="{{ url_for('logs_page') }}" class="btn">View Logs</a>
+    </div>
+</div>
+
+<div class="card">
+    <h3>System Overview</h3>
+    <p><strong>Total Routes:</strong> {{ total_routes }}</p>
+    <p><strong>Total Logs:</strong> {{ total_logs }}</p>
+</div>
+
+<div class="card">
+    <h3>Recent Activity</h3>
+
+    {% if recent_logs and recent_logs|length > 0 %}
+        {% for log in recent_logs %}
+            <div class="log-item">
+                <p><strong>Logged At:</strong> {{ log.created_at }}</p>
+                <p><strong>Driver:</strong> {{ log.username }}</p>
+                <p><strong>Route:</strong> {{ log.route_number }}</p>
+                <p><strong>Fleet No:</strong> {{ log.fleet_no }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No recent logs yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
