@@ -4,53 +4,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Metroline Driver Log System{% endblock %}</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
+
+    {% if session.get('user_id') %}
     <header class="topbar">
         <div class="topbar-inner">
-            <h1 class="logo">Metroline Cricklewood Driver Log</h1>
+
+            <a href="{{ url_for('dashboard') }}" class="logo-link">
+                <strong>Cricklewood Driver</strong>
+            </a>
 
             <nav class="nav">
-                <a href="{{ url_for('index') }}">Dashboard</a>
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('routes_page') }}">Routes</a>
+                <a href="{{ url_for('logs_page') }}">Logs</a>
 
-                {% if session.get('user_id') %}
-                    <a href="{{ url_for('routes_page') }}">Routes</a>
-                    <a href="{{ url_for('logs_page') }}">Logs</a>
-
-                    {% if session.get('role') == 'driver' %}
-                        <a href="{{ url_for('add_log') }}">Add Log</a>
-                    {% endif %}
-
-                    {% if session.get('role') in ['supervisor', 'manager'] %}
-                        <a href="{{ url_for('supervisor_dashboard') }}">Supervisor</a>
-                    {% endif %}
-
-                    <a href="{{ url_for('logout') }}">Logout</a>
-                {% else %}
-                    <a href="{{ url_for('login') }}">Login</a>
+                {% if session.get("role") == "driver" %}
+                    <a href="{{ url_for('add_log') }}">Add Log</a>
                 {% endif %}
+
+                <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
             </nav>
+
         </div>
     </header>
+    {% endif %}
 
-    <main class="page">
-        <div class="container">
-
-            {% with messages = get_flashed_messages(with_categories=true) %}
-                {% if messages %}
-                    <div class="flash-wrapper">
-                        {% for category, message in messages %}
-                            <div class="flash flash-{{ category }}">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endif %}
-            {% endwith %}
-
-            {% block content %}{% endblock %}
-        </div>
+    <main class="{% if session.get('user_id') %}app-main{% else %}public-main{% endif %}">
+        {% block content %}{% endblock %}
     </main>
+
 </body>
 </html>

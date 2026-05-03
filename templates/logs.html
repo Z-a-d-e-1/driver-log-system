@@ -1,20 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Driver Logs - Metroline{% endblock %}
+
+{% block content %}
+
 <div class="card">
-    <h2>Driver Logs</h2>
+    <h2>Submitted Driver Log Cards</h2>
 
     {% if logs %}
         {% for log in logs %}
-            <div class="log-item">
-                <p><strong>Time:</strong> {{ log.time }}</p>
-                <p><strong>Route:</strong> {{ log.route_number }}</p>
-                <p><strong>Running No:</strong> {{ log.running_no }}</p>
-                <p><strong>Fleet No:</strong> {{ log.fleet_no }}</p>
-                <p><strong>Duty:</strong> {{ log.duty }}</p>
-                <p><strong>Employee:</strong> {{ log.employee_no }}</p>
-                <p><strong>Sign On:</strong> {{ log.sign_on }}</p>
-                <p><strong>Sign Off:</strong> {{ log.sign_off }}</p>
+
+        <div class="log-card-wrapper">
+            <div class="paper-log-paper">
+
+                <div class="log-card-title">DRIVER LOG CARD</div>
+
+                <table class="paper-table">
+                    <colgroup>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                        <col>
+                    </colgroup>
+
+                    <tr>
+                        <td>Garage</td>
+                        <td>{{ log.garage or "W" }}</td>
+                        <td>Route 1</td>
+                        <td>{{ log.route_number }}</td>
+                        <td>Running No.</td>
+                        <td>{{ log.running_no }}</td>
+                        <td>Fleet No.</td>
+                        <td>{{ log.fleet_no }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Date</td>
+                        <td>{{ log.log_date or log.created_at }}</td>
+                        <td>Route 2</td>
+                        <td>{{ log.route_2 or "" }}</td>
+                        <td>Running No.</td>
+                        <td>{{ log.running_no_2 or "" }}</td>
+                        <td>Fleet No.</td>
+                        <td>{{ log.fleet_no_2 or "" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Duty</td>
+                        <td>{{ log.duty }}</td>
+                        <td>Route 3</td>
+                        <td>{{ log.route_3 or "" }}</td>
+                        <td>Running No.</td>
+                        <td>{{ log.running_no_3 or "" }}</td>
+                        <td>Fleet No.</td>
+                        <td>{{ log.fleet_no_3 or "" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td>EMPLOYEE NO.</td>
+                        <td>{{ log.employee_no }}</td>
+                        <td>DRIVER'S NAME</td>
+                        <td>{{ log.driver_name or log.username }}</td>
+                        <td>SIGN ON</td>
+                        <td>{{ log.sign_on }}</td>
+                        <td>SIGN OFF</td>
+                        <td>{{ log.sign_off }}</td>
+                    </tr>
+
+                    <tr>
+                        <th colspan="8" class="instruction">
+                            PLEASE ENTER ACTUAL TIME, NOT SCHEDULED TIME
+                        </th>
+                    </tr>
+
+                    <!-- ================= FIRST SPELL ================= -->
+<tr>
+    <th colspan="8">FIRST SPELL</th>
+</tr>
+
+<tr>
+    <td colspan="3">TAKE OVER POINT</td>
+    <td colspan="5">{{ log.first_spell_takeover or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">DEPART TERMINAL</td>
+    <td colspan="5">{{ log.depart_terminal_point or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">DEPART TIME</td>
+    <td colspan="5">{{ log.depart_terminal_time or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">ARRIVE TERMINAL</td>
+    <td colspan="5">{{ log.arrive_terminal_point or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">ARRIVE TIME</td>
+    <td colspan="5">{{ log.arrive_terminal_time or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">DRIVING TIME TOTAL</td>
+    <td colspan="5">{{ log.driving_time_total or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">STAND TIME</td>
+    <td colspan="5">{{ log.first_spell_stand_time or "" }}</td>
+</tr>
+
+
+<!-- ================= SECOND SPELL ================= -->
+<tr>
+    <th colspan="8">SECOND SPELL</th>
+</tr>
+
+<tr>
+    <td colspan="3">TAKE OVER POINT</td>
+    <td colspan="5">{{ log.second_spell_takeover or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">TIME</td>
+    <td colspan="5">{{ log.second_spell_time or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">STAND TIME</td>
+    <td colspan="5">{{ log.second_spell_stand_time or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">OFF BUS POINT</td>
+    <td colspan="5">{{ log.off_bus_point_stand_time or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">TOTAL BREAK</td>
+    <td colspan="5">{{ log.accumulated_break or "" }}</td>
+</tr>
+
+<tr>
+    <td colspan="3">BREAK COMPLIANCE</td>
+    <td colspan="5">{{ log.break_compliance_status or "" }}</td>
+</tr>
+
+                    <tr>
+                        <td colspan="2">CURTAILMENT POINTS</td>
+                        <td colspan="6">{{ log.curtailment_points or "" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">OFF BUS POINT STAND TIME</td>
+                        <td colspan="6">{{ log.off_bus_point_stand_time or "" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">ACCUMULATED STAND TIME TOTAL</td>
+                        <td colspan="6">{{ log.accumulated_stand_time_total or "" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">LOST MILEAGE CODE</td>
+                        <td colspan="6">{{ log.lost_mileage_code or "" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">REMARKS</td>
+                        <td colspan="6">{{ log.remarks or "" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">SUPERVISOR NAME</td>
+                        <td colspan="2">{{ log.supervisor_name or "" }}</td>
+                        <td colspan="2">SUPERVISOR SIGNATURE</td>
+                        <td colspan="2">{{ log.supervisor_signature or "" }}</td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">DATE CHECKED</td>
+                        <td colspan="6">{{ log.supervisor_signed_at or "" }}</td>
+                    </tr>
+                </table>
+
+                <p class="log-created">Submitted: {{ log.created_at }}</p>
+
             </div>
+        </div>
+
         {% endfor %}
     {% else %}
         <p>No logs submitted yet.</p>
     {% endif %}
 </div>
+
+{% endblock %}

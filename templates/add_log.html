@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+
+{% block title %}Add Driver Log{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <form method="POST" action="{{ url_for('add_log') }}">
+
+        <div class="log-card-wrapper">
+            <div class="paper-log-card">
+
+                <div class="log-card-title">LOG CARD</div>
+
+                <!-- TOP SECTION -->
+                <table class="paper-table outer-table">
+                    <tr>
+                        <td class="label-cell">Garage</td>
+                        <td><input type="text" name="garage" value="W" class="paper-input" readonly></td>
+
+                        <td class="label-cell">Route 1</td>
+                        <td><input type="text" name="route_number" class="paper-input" required></td>
+
+                        <td class="label-cell">Running No.</td>
+                        <td><input type="text" name="running_no" class="paper-input" required></td>
+
+                        <td class="label-cell">Fleet No.</td>
+                        <td><input type="text" name="fleet_no" class="paper-input" required></td>
+                    </tr>
+
+                    <tr>
+                        <td class="label-cell">Date</td>
+                        <td><input type="date" name="log_date" class="paper-input" required></td>
+
+                        <td class="label-cell">Route 2</td>
+                        <td><input type="text" name="route_2" class="paper-input"></td>
+
+                        <td class="label-cell">Running No.</td>
+                        <td><input type="text" name="running_no_2" class="paper-input"></td>
+
+                        <td class="label-cell">Fleet No.</td>
+                        <td><input type="text" name="fleet_no_2" class="paper-input"></td>
+                    </tr>
+
+                    <tr>
+                        <td class="label-cell">Duty</td>
+                        <td><input type="text" name="duty" class="paper-input" required></td>
+
+                        <td class="label-cell">Route 3</td>
+                        <td><input type="text" name="route_3" class="paper-input"></td>
+
+                        <td class="label-cell">Running No.</td>
+                        <td><input type="text" name="running_no_3" class="paper-input"></td>
+
+                        <td class="label-cell">Fleet No.</td>
+                        <td><input type="text" name="fleet_no_3" class="paper-input"></td>
+                    </tr>
+                </table>
+
+                <!-- DRIVER DETAILS -->
+                <table class="paper-table employee-table">
+                    <tr>
+                        <td class="label-cell">EMPLOYEE NO.</td>
+                        <td><input type="text" name="employee_no" class="paper-input" required></td>
+
+                        <td class="label-cell">DRIVER'S NAME</td>
+                        <td>
+                            <input type="text" name="driver_name" class="paper-input"
+                                   value="{{ session.get('username', '') }}" readonly>
+                        </td>
+
+                        <td class="label-cell">SIGN ON</td>
+                        <td><input type="text" name="sign_on" class="paper-input time-entry" placeholder="HH:MM" required></td>
+
+                        <td class="label-cell">SIGN OFF</td>
+                        <td><input type="text" name="sign_off" class="paper-input time-entry" placeholder="HH:MM"></td>
+                    </tr>
+                </table>
+
+                <div class="instruction-bar">
+                    PLEASE ENTER ACTUAL TIME, NOT SCHEDULED TIME
+                </div>
+
+                <!-- SPELL SECTION -->
+                <div class="two-spell-wrapper">
+
+                    <!-- FIRST SPELL -->
+                    <table class="official-spell-table">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="spell-heading">FIRST SPELL</th>
+                            </tr>
+                            <tr>
+                                <th>TAKE OVER POINT</th>
+                                <th></th>
+                                <th>TIME</th>
+                                <th>STAND TIME<br>ACCUMULATIVE</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="first_takeover_point" class="paper-input"></td>
+                                <td></td>
+                                <td><input type="text" name="first_takeover_depart" id="first_takeover_depart" class="paper-input time-entry" placeholder="HH:MM"></td>
+                                <td><input type="text" name="first_break_total" id="first_break_total" class="paper-input calculated-field" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>TERMINAL POINT</th>
+                                <th>ARRIVE</th>
+                                <th>DEPART</th>
+                                <th>BREAK</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for i in range(1, 11) %}
+                            <tr class="first-spell-row">
+                                <td><input type="text" name="first_terminal_point_{{ i }}" class="paper-input"></td>
+                                <td><input type="text" name="first_arrive_{{ i }}" class="paper-input time-entry arrive-time" placeholder="HH:MM"></td>
+                                <td><input type="text" name="first_depart_{{ i }}" class="paper-input time-entry depart-time" placeholder="HH:MM"></td>
+                                <td><input type="text" name="first_break_{{ i }}" class="paper-input calculated-field break-total" readonly></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        <tfoot>
+                                <tr>
+                                    <th>OFF BUS POINT</th>
+                                    <td></td>
+                                    <th>TIME</th>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <input type="text" name="first_off_bus_point" class="paper-input" placeholder="Enter terminal point">
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <input type="text" name="first_off_bus_time" class="paper-input time-entry" placeholder="HH:MM">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="first_off_bus_break" id="first_off_bus_break" class="paper-input calculated-field" readonly>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3">TOTAL DRIVING TIME</th>
+                                    <td>
+                                        <input type="text" name="first_spell_total" id="first_spell_total" class="paper-input calculated-field" readonly>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                    </table>
+
+                    <!-- SECOND SPELL -->
+                    <table class="official-spell-table">
+                        <thead>
+                            <tr>
+                                <th colspan="4" class="spell-heading">SECOND SPELL</th>
+                            </tr>
+                            <tr>
+                                <th>TAKE OVER POINT</th>
+                                <th></th>
+                                <th>TIME</th>
+                                <th>STAND TIME<br>ACCUMULATIVE</th>
+                            </tr>
+                            <tr>
+                                <td><input type="text" name="second_takeover_point" class="paper-input"></td>
+                                <td></td>
+                                <td><input type="text" name="second_takeover_depart" id="second_takeover_depart" class="paper-input time-entry" placeholder="HH:MM"></td>
+                                <td><input type="text" name="second_break_total" id="second_break_total" class="paper-input calculated-field" readonly></td>
+                            </tr>
+                            <tr>
+                                <th>TERMINAL POINT</th>
+                                <th>ARRIVE</th>
+                                <th>DEPART</th>
+                                <th>BREAK</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {% for i in range(1, 11) %}
+                            <tr class="second-spell-row">
+                                <td><input type="text" name="second_terminal_point_{{ i }}" class="paper-input"></td>
+                                <td><input type="text" name="second_arrive_{{ i }}" class="paper-input time-entry arrive-time" placeholder="HH:MM"></td>
+                                <td><input type="text" name="second_depart_{{ i }}" class="paper-input time-entry depart-time" placeholder="HH:MM"></td>
+                                <td><input type="text" name="second_break_{{ i }}" class="paper-input calculated-field break-total" readonly></td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+
+                        <tfoot>
+                                <tr>
+                                    <th>OFF BUS POINT</th>
+                                    <td></td>
+                                    <th>TIME</th>
+                                    <td></td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <input type="text" name="second_off_bus_point" class="paper-input" placeholder="Enter terminal point">
+                                    </td>
+                                    <td></td>
+                                    <td>
+                                        <input type="text" name="second_off_bus_time" class="paper-input time-entry" placeholder="HH:MM">
+                                    </td>
+                                    <td>
+                                        <input type="text" name="second_off_bus_break" id="second_off_bus_break" class="paper-input calculated-field" readonly>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th colspan="3">TOTAL DRIVING TIME</th>
+                                    <td>
+                                        <input type="text" name="second_spell_total" id="second_spell_total" class="paper-input calculated-field" readonly>
+                                    </td>
+                                </tr>
+                            </tfoot>
+                    </table>
+
+                </div>
+
+                <!-- LOST MILEAGE RECORD -->
+                <table class="lost-mileage-table">
+                    <thead>
+                        <tr>
+                            <th colspan="9" class="lost-title">LOST MILEAGE RECORD</th>
+                        </tr>
+                        <tr>
+                            <th>Trip No.</th>
+                            <th>Run No.</th>
+                            <th>Time Stopped</th>
+                            <th>Time Resumed</th>
+                            <th>Mileage Lost / Bus Stop No.<br>From</th>
+                            <th>To</th>
+                            <th>Single / Return<br>Journey</th>
+                            <th>Reason for<br>Curtailment</th>
+                            <th>Curtailment No.</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for i in range(1, 4) %}
+                        <tr>
+                            <td><input type="text" name="lost_trip_no_{{ i }}" class="paper-input"></td>
+                            <td><input type="text" name="lost_run_no_{{ i }}" class="paper-input"></td>
+                            <td><input type="text" name="lost_time_stopped_{{ i }}" class="paper-input time-entry" placeholder="HH:MM"></td>
+                            <td><input type="text" name="lost_time_resumed_{{ i }}" class="paper-input time-entry" placeholder="HH:MM"></td>
+                            <td><input type="text" name="lost_from_{{ i }}" class="paper-input"></td>
+                            <td><input type="text" name="lost_to_{{ i }}" class="paper-input"></td>
+                            <td><input type="text" name="lost_single_return_{{ i }}" class="paper-input"></td>
+                            <td><input type="text" name="lost_reason_{{ i }}" class="paper-input"></td>
+                            <td><input type="text" name="lost_curtailment_no_{{ i }}" class="paper-input"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- LOST MILEAGE CODES -->
+                <div class="lost-codes-box">
+                    <strong>LOST MILEAGE CODES</strong>
+                    <div class="codes-line">
+                        ST Staff &nbsp;&nbsp;
+                        MC Mechanical &nbsp;&nbsp;
+                        OD Other Deductible &nbsp;&nbsp;
+                        TR Traffic &nbsp;&nbsp;
+                        OI Other Non-Deductible
+                    </div>
+                </div>
+
+                <!-- BUSES SUBSTITUTED -->
+                <table class="buses-table">
+                    <thead>
+                        <tr>
+                            <th colspan="3">BUSES SUBSTITUTED</th>
+                        </tr>
+                        <tr>
+                            <th>TIME</th>
+                            <th>LOCATION</th>
+                            <th>SUBSEQUENT TYPE/NUMBER</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in range(1, 4) %}
+                        <tr>
+                            <td><input type="text" name="bus_time_{{ i }}" class="paper-input time-entry" placeholder="HH:MM"></td>
+                            <td><input type="text" name="bus_location_{{ i }}" class="paper-input"></td>
+                            <td><input type="text" name="bus_type_{{ i }}" class="paper-input"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                <!-- IMPORTANT NOTICE -->
+                <div class="important-box">
+                    <strong>IMPORTANT:</strong>
+                    Domestic driving hours limit of driving continuous for 5 hours 30 minutes can be relaxed to 8 hours 30 minutes 
+                    providing an accumulated stand time of 45 minutes has been taken. It is vital that you record your accumulated 
+                    stand time in the section of log card provided. If you are unsure please speak to a manager. If you have not had 
+                    a total of 45 minutes accumulated stand time to comply with the 8 hour 30 minute variation please find a suitable 
+                    place to visit until your break reaches the legal minimum and record this on log card.
+                    <br><br>
+                    <strong>PLEASE NOTE: THIS IS NOT APPLICABLE TO DUTIES UNDER 5 HOURS 30 MINUTES.</strong>
+                </div>
+
+                <!-- SUPERVISOR CHECK -->
+                <div class="signature-section">
+                    <span class="checked-by">CHECKED BY</span>
+
+                    <div class="signature-box">
+                        <input type="text" name="supervisor_name" placeholder="Supervisor signature">
+                    </div>
+                </div>
+
+                <!-- SUBMIT -->
+                <div class="paper-actions">
+                    <button type="submit" class="paper-btn">Submit Log Card</button>
+                </div>
+
+            </div>
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+function cleanTime(value) {
+    if (!value) return "";
+    value = value.trim();
+
+    if (/^\d{3,4}$/.test(value)) {
+        value = value.padStart(4, "0");
+        return value.slice(0, 2) + ":" + value.slice(2);
+    }
+
+    return value;
+}
+
+function timeToMinutes(value) {
+    value = cleanTime(value);
+
+    if (!value.includes(":")) return null;
+
+    const parts = value.split(":");
+    if (parts.length !== 2) return null;
+
+    const hours = parseInt(parts[0], 10);
+    const minutes = parseInt(parts[1], 10);
+
+    if (isNaN(hours) || isNaN(minutes)) return null;
+    if (hours < 0 || hours > 23) return null;
+    if (minutes < 0 || minutes > 59) return null;
+
+    return hours * 60 + minutes;
+}
+
+function minutesToText(totalMinutes) {
+    if (!totalMinutes || totalMinutes <= 0) return "";
+
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    if (hours > 0 && minutes > 0) {
+        return hours + "h " + minutes + "m";
+    }
+
+    if (hours > 0) {
+        return hours + "h";
+    }
+
+    return minutes + "m";
+}
+
+function calculateSpellBreaks(rowClass, topTotalId, bottomBreakId) {
+    const rows = document.querySelectorAll("." + rowClass);
+    const topTotalBox = document.getElementById(topTotalId);
+    const bottomBreakBox = document.getElementById(bottomBreakId);
+
+    let accumulatedBreak = 0;
+    let lastRecordedBreak = "";
+
+    rows.forEach(function(row) {
+        const arriveInput = row.querySelector(".arrive-time");
+        const departInput = row.querySelector(".depart-time");
+        const breakInput = row.querySelector(".break-total");
+
+        if (!arriveInput || !departInput || !breakInput) return;
+
+        const arrive = timeToMinutes(arriveInput.value);
+        const depart = timeToMinutes(departInput.value);
+
+        if (arrive !== null && depart !== null) {
+            let breakMinutes = depart - arrive;
+
+            if (breakMinutes < 0) {
+                breakMinutes += 24 * 60;
+            }
+
+            accumulatedBreak += breakMinutes;
+            lastRecordedBreak = minutesToText(accumulatedBreak);
+            breakInput.value = lastRecordedBreak;
+        } else {
+            breakInput.value = "";
+        }
+    });
+
+    if (topTotalBox) {
+        topTotalBox.value = lastRecordedBreak;
+    }
+
+    if (bottomBreakBox) {
+        bottomBreakBox.value = lastRecordedBreak;
+    }
+}
+
+function calculateAllBreaks() {
+    calculateSpellBreaks("first-spell-row", "first_break_total", "first_off_bus_break");
+    calculateSpellBreaks("second-spell-row", "second_break_total", "second_off_bus_break");
+}
+
+document.addEventListener("input", function(event) {
+    if (
+        event.target.classList.contains("arrive-time") ||
+        event.target.classList.contains("depart-time")
+    ) {
+        calculateAllBreaks();
+    }
+});
+
+document.addEventListener("change", calculateAllBreaks);
+document.addEventListener("DOMContentLoaded", calculateAllBreaks);
+</script>
+
+{% endblock %}

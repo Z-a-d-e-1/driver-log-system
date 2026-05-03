@@ -4,30 +4,90 @@
 
 {% block content %}
 
-<div class="card">
-    <h2>Available Routes</h2>
-    <p>Select a route to view route details.</p>
-</div>
+<div class="card routes-page">
 
-<div class="routes-grid">
+    <div class="routes-header">
+        <h2>Metroline Routes</h2>
+
+        {% if session.get("role") in ["supervisor", "manager"] %}
+            <a href="{{ url_for('add_route') }}" class="btn add-route-btn">
+                + Add Route
+            </a>
+        {% endif %}
+    </div>
+
     {% if routes %}
-        {% for route in routes %}
-            <div class="card route-card">
-                <h3>Route {{ route.route_number }}</h3>
-                <p><strong>Start:</strong> {{ route.start_point }}</p>
-                <p><strong>End:</strong> {{ route.end_point }}</p>
-                <p><strong>Notes:</strong> {{ route.notes }}</p>
+        <div class="route-grid">
 
-                <a href="{{ url_for('route_detail', route_id=route.id) }}" class="btn">
-                    View Details
-                </a>
-            </div>
-        {% endfor %}
-    {% else %}
-        <div class="card">
-            <p>No routes found in the system.</p>
+            {% for route in routes %}
+                <div class="route-card">
+
+                    <h3>Route {{ route.route_number }}</h3>
+
+                    <p><strong>From:</strong> {{ route.start_point }}</p>
+                    <p><strong>To:</strong> {{ route.end_point }}</p>
+
+                    {% if route.notes %}
+                        <p><strong>Notes:</strong> {{ route.notes }}</p>
+                    {% endif %}
+
+                    <a href="{{ url_for('route_detail', route_number=route.route_number) }}" class="btn small-route-btn">
+                        View Route
+                    </a>
+
+                    {% if session.get("role") in ["supervisor", "manager"] %}
+                        <button type="button"
+                                class="btn btn-danger small-remove-btn"
+                                onclick="openDeleteModal('{{ route.route_number }}')">
+                            Delete
+                        </button>
+                    {% endif %}
+
+                </div>
+            {% endfor %}
+
         </div>
+    {% else %}
+        <p>No routes found.</p>
     {% endif %}
+
 </div>
+
+<!-- DELETE MODAL -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>⚠️ Confirm Deletion</h3>
+        <p id="deleteText"></p>
+
+        <div class="modal-actions">
+            <button type="button" onclick="confirmDeleteAction()" class="btn btn-danger">Delete</button>
+            <button type="button" onclick="closeModal()" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+let routeToDelete = null;
+
+function openDeleteModal(routeNumber) {
+    routeToDelete = routeNumber;
+
+    document.getElementById("deleteText").innerText =
+        "Are you sure you want to delete Route " + routeNumber + "? This action cannot be undone.";
+
+    document.getElementById("deleteModal").style.display = "flex";
+}
+
+function closeModal() {
+    routeToDelete = null;
+    document.getElementById("deleteModal").style.display = "none";
+}
+
+function confirmDeleteAction() {
+    if (routeToDelete) {
+        window.location.href = "/delete-route/" + routeToDelete;
+    }
+}
+</script>
 
 {% endblock %}

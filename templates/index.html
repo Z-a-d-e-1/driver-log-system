@@ -1,45 +1,130 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Metroline{% endblock %}
+{% block title %}Operations Dashboard{% endblock %}
 
 {% block content %}
 
-<div class="card">
-    <h2>Cricklewood Driver Digital Log System</h2>
-    <p>Welcome to the Metroline operational dashboard.</p>
-    <p>Drivers can submit daily log records, and supervisors can review recent activity.</p>
-</div>
+<div class="soc-dashboard">
 
-<div class="card">
-    <h3>Quick Actions</h3>
-    <div class="button-group">
-        <a href="{{ url_for('routes_page') }}" class="btn">View Routes</a>
-        <a href="{{ url_for('add_log') }}" class="btn">Add Log</a>
-        <a href="{{ url_for('logs_page') }}" class="btn">View Logs</a>
+    <div class="soc-header">
+        <div>
+            <p class="soc-kicker">Metroline Operations Monitoring</p>
+            <h1>Driver Log Control Panel</h1>
+            <p class="soc-subtitle">
+                Real-time style monitoring for routes, submitted logs, activity and compliance visibility.
+            </p>
+        </div>
+
+        <div class="soc-status">
+            <span class="pulse-dot"></span>
+            System Online
+        </div>
     </div>
+
+    <div class="soc-grid">
+
+    <div class="soc-card">
+        <p>Total Routes</p>
+        <h2>{{ total_routes }}</h2>
+
+        {% if total_routes == 0 %}
+            <small class="kpi-sub warning">No routes added yet</small>
+        {% else %}
+            <small class="kpi-sub success">Route database active</small>
+        {% endif %}
+
+        <span>Active route records</span>
+    </div>
+
+    <div class="soc-card">
+        <p>Total Logs</p>
+        <h2>{{ total_logs }}</h2>
+
+        {% if total_logs == 0 %}
+            <small class="kpi-sub warning">No logs submitted yet</small>
+        {% else %}
+            <small class="kpi-sub success">Logs are being submitted</small>
+        {% endif %}
+
+        <span>Driver log submissions</span>
+    </div>
+
+    <div class="soc-card">
+        <p>Today’s Logs</p>
+        <h2>{{ todays_logs }}</h2>
+
+        {% if todays_logs == 0 %}
+            <small class="kpi-sub warning">No logs submitted today</small>
+        {% else %}
+            <small class="kpi-sub success">Active submissions today</small>
+        {% endif %}
+
+        <span>Submitted today</span>
+    </div>
+
+    <div class="soc-card alert-card">
+        <p>Monitoring Status</p>
+        <h2>Live</h2>
+        <small class="kpi-sub success">System health normal</small>
+        <span>Supervisor visibility enabled</span>
+    </div>
+
 </div>
 
-<div class="card">
-    <h3>System Overview</h3>
-    <p><strong>Total Routes:</strong> {{ total_routes }}</p>
-    <p><strong>Total Logs:</strong> {{ total_logs }}</p>
-</div>
+    <div class="soc-panels">
 
-<div class="card">
-    <h3>Recent Activity</h3>
-
-    {% if recent_logs and recent_logs|length > 0 %}
-        {% for log in recent_logs %}
-            <div class="log-item">
-                <p><strong>Logged At:</strong> {{ log.created_at }}</p>
-                <p><strong>Driver:</strong> {{ log.username }}</p>
-                <p><strong>Route:</strong> {{ log.route_number }}</p>
-                <p><strong>Fleet No:</strong> {{ log.fleet_no }}</p>
+        <div class="soc-panel">
+            <div class="panel-header">
+                <h3>Recent Activity</h3>
+                <span>Latest driver logs</span>
             </div>
-        {% endfor %}
-    {% else %}
-        <p>No recent logs yet.</p>
-    {% endif %}
+
+            {% if recent_logs %}
+                <div class="activity-list">
+                    {% for log in recent_logs %}
+                        <div class="activity-item">
+                            <div>
+                                <strong>Route {{ log.route_number }}</strong>
+                                <p>
+                                    Fleet: {{ log.fleet_no if log.fleet_no else "N/A" }}
+                                    |
+                                    Driver: {{ log.driver_name if log.driver_name else "N/A" }}
+                                </p>
+                            </div>
+                            <span>{{ log.created_at }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">No recent logs found.</p>
+            {% endif %}
+        </div>
+
+        <div class="soc-panel">
+            <div class="panel-header">
+                <h3>Route Activity</h3>
+                <span>Most logged routes</span>
+            </div>
+
+            {% if route_activity %}
+                <div class="route-bars">
+                    {% for route in route_activity %}
+                        <div class="route-bar-row">
+                            <span>Route {{ route.route_number }}</span>
+                            <div class="bar-track">
+                                <div class="bar-fill" style="width: {{ route.log_count * 15 }}%;"></div>
+                            </div>
+                            <strong>{{ route.log_count }}</strong>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="empty-state">No route activity yet.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
 </div>
 
 {% endblock %}

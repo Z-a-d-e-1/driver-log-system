@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Metroline Control{% endblock %}
+
+{% block content %}
+
+<div class="control-dashboard">
+
+    <section class="control-hero">
+        <div>
+            <p class="control-badge">Cricklewood Garage Control</p>
+            <h1>Operations Dashboard</h1>
+            <p>Monitor driver logs, route activity and daily operational records.</p>
+        </div>
+
+        <div class="control-user-card">
+            <span>Logged in as</span>
+            <strong>{{ session.get('username', 'User') }}</strong>
+            <small>{{ session.get('role', 'staff')|title }}</small>
+        </div>
+    </section>
+
+    <section class="control-stats">
+        <div class="stat-card red">
+            <span>Total Routes</span>
+            <strong>{{ total_routes }}</strong>
+            <p>Cricklewood active routes</p>
+        </div>
+
+        <div class="stat-card dark">
+            <span>Total Logs</span>
+            <strong>{{ total_logs }}</strong>
+            <p>Driver records submitted</p>
+        </div>
+
+        <div class="stat-card dark">
+            <span>System Status</span>
+            <strong>Live</strong>
+            <p>Operational database active</p>
+        </div>
+    </section>
+
+    <section class="control-actions">
+        <a href="{{ url_for('routes_page') }}" class="control-action">
+            <span>Routes</span>
+            <strong>View route list →</strong>
+        </a>
+
+        <a href="{{ url_for('logs_page') }}" class="control-action">
+            <span>Logs</span>
+            <strong>Review driver logs →</strong>
+        </a>
+
+        {% if session.get('role') == 'driver' %}
+        <a href="{{ url_for('add_log') }}" class="control-action red-action">
+            <span>Driver Entry</span>
+            <strong>Add new log →</strong>
+        </a>
+        {% endif %}
+    </section>
+
+    <section class="recent-panel">
+        <div class="section-header">
+            <h2>Recent Driver Activity</h2>
+            <p>Latest 5 submitted log records</p>
+        </div>
+
+        {% if recent_logs %}
+            <div class="recent-list">
+                {% for log in recent_logs %}
+                <div class="recent-item">
+                    <div>
+                        <strong>Route {{ log.route_number }}</strong>
+                        <span>Driver: {{ log.username }}</span>
+                    </div>
+
+                    <div>
+                        <span>Fleet: {{ log.fleet_no }}</span>
+                        <span>Duty: {{ log.duty }}</span>
+                    </div>
+
+                    <small>{{ log.created_at }}</small>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                No recent logs yet.
+            </div>
+        {% endif %}
+    </section>
+
+</div>
+
+{% endblock %}

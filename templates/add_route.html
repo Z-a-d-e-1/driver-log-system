@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Add Route - Metroline{% endblock %}
+
+{% block content %}
+
+<div class="card">
+    <h2>Add New Route</h2>
+
+    <form method="POST" action="{{ url_for('add_route') }}">
+
+        <label>Route Number</label>
+        <input type="text" name="route_number" required placeholder="Example: 16">
+
+        <label>Start Point</label>
+        <input type="text" name="start_point" required placeholder="Example: Cricklewood Garage">
+
+        <label>End Point</label>
+        <input type="text" name="end_point" required placeholder="Example: Victoria Station">
+
+        <label>Notes</label>
+        <textarea name="notes" placeholder="Optional route notes"></textarea>
+
+        <button type="submit" class="btn">Save Route</button>
+        <a href="{{ url_for('routes_page') }}" class="btn-secondary">Cancel</a>
+
+    </form>
+</div>
+
+{% endblock %}

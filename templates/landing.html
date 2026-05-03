@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Cricklewood Driver - Welcome{% endblock %}
+
+{% block content %}
+
+<div class="landing-hero">
+
+    <div class="landing-center">
+
+        <div class="landing-badge">Cricklewood Garage</div>
+
+        <h1>Cricklewood Driver</h1>
+        <p>Metroline Route Operations System</p>
+
+
+        {% if session.get('user_id') %}
+            <a href="{{ url_for('dashboard') }}" class="landing-btn">
+                Go to Dashboard →
+            </a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="landing-btn">
+                Login to Continue →
+            </a>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}
