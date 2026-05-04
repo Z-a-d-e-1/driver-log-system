@@ -14,7 +14,7 @@ A SOC-style operational monitoring dashboard for managing driver logs, routes, a
 
 ---
 
-## 📖 Overview
+## Overview
 
 This system digitises traditional Metroline paper log cards into a structured web application.
 
@@ -32,7 +32,7 @@ The project demonstrates:
 
 ---
 
-## ⚙️ Features
+## Features
 
 - Role-based access control (Driver / Supervisor / Manager)  
 - Digital driver log card (paper replica)  
@@ -40,7 +40,7 @@ The project demonstrates:
 - Route management system  
 - Metroline-inspired UI (dark operational theme)  
 
-### 📊 SOC-Style Dashboard
+### SOC-Style Dashboard
 
 - Total routes overview  
 - Total logs tracking  
@@ -103,7 +103,7 @@ http://127.0.0.1:5000
 
 ---
 
-## ## 🎥 System Overview
+## ## System Overview
 
 A real-world inspired transport operations platform built with Flask, simulating a Metroline-style driver log and monitoring system.
 
