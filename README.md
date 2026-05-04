@@ -1,12 +1,12 @@
-Metroline Driver Log System
+# Metroline Driver Log System
 
 ## Key Highlights
 
-* Built a SOC-style monitoring dashboard for transport operations
-* Implemented role-based access control (Driver / Supervisor / Manager)
-* Designed a digital replica of real-world Metroline log cards
-* Developed backend logic for route and log management using Flask
-* Structured project with production-style architecture (templates, static, database separation)
+- Built a SOC-style monitoring dashboard for transport operations  
+- Implemented role-based access control (Driver / Supervisor / Manager)  
+- Designed a digital replica of real-world Metroline log cards  
+- Developed backend logic for route and log management using Flask  
+- Structured project using production-style architecture (templates, static, database separation)  
 
 ---
 
@@ -14,50 +14,48 @@ A SOC-style operational monitoring dashboard for managing driver logs, routes, a
 
 ---
 
-## Overview
+## 📖 Overview
 
 This system digitises traditional Metroline paper log cards into a structured web application.
 
-This project demonstrates backend development, system design, and operational monitoring concepts relevant to cybersecurity and SOC analyst roles.
+The project demonstrates:
 
-It allows:
+- Backend development with Flask  
+- System design and data modelling  
+- Operational monitoring concepts aligned with SOC analyst workflows  
 
-* Drivers to submit logs
-* Supervisors to monitor activity
-* Managers to view operational insights
+### User Roles
+
+- **Drivers** → Submit logs  
+- **Supervisors** → Monitor activity  
+- **Managers** → View operational insights  
 
 ---
 
-## Features
+## ⚙️ Features
 
-* Role-based access (Driver / Supervisor / Manager)
-* Digital driver log card (paper replica)
-* Time tracking and log submission
+- Role-based access control (Driver / Supervisor / Manager)  
+- Digital driver log card (paper replica)  
+- Time tracking and structured log submission  
+- Route management system  
+- Metroline-inspired UI (dark operational theme)  
 
-### SOC-style dashboard includes:
+### 📊 SOC-Style Dashboard
 
-* Total routes
-
-* Total logs
-
-* Daily activity
-
-* Recent logs
-
-* Route activity monitoring
-
-* Route management system
-
-* Metroline-inspired UI (dark operational theme)
+- Total routes overview  
+- Total logs tracking  
+- Daily activity monitoring  
+- Recent log submissions  
+- Route activity insights  
 
 ---
 
 ## Tech Stack
 
-* **Backend:** Flask (Python)
-* **Database:** SQLite
-* **Frontend:** HTML, CSS (custom UI)
-* **Version Control:** Git & GitHub
+- **Backend:** Flask (Python)  
+- **Database:** SQLite  
+- **Frontend:** HTML, CSS (custom UI)  
+- **Version Control:** Git & GitHub  
 
 ---
 
