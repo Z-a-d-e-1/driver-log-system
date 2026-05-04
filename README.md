@@ -1,4 +1,4 @@
-<img width="2048" height="1152" alt="Login" src="https://github.com/user-attachments/assets/a1839655-cb40-428a-a55d-a7edd464e48f" /><img width="2048" height="1152" alt="Login" src="https://github.com/user-attachments/assets/afb87ca8-f1ec-47a7-8d86-70525076ca7c" /># Metroline Driver Log System
+Metroline Driver Log System
 
 ## Key Highlights
 
@@ -125,6 +125,7 @@ Key capabilities:
 Modern, production-style entry point for the Metroline system.
 
 ![Landing Page](screenshots/landing.png)
+<img width="800" height="1152" alt="Login" src="https://github.com/user-attachments/assets/a1839655-cb40-428a-a55d-a7edd464e48f" />
 
 ---
 
