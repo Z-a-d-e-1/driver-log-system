@@ -117,36 +117,27 @@ Key capabilities:
 - Route and operational visibility
 - Compliance tracking logic (driving time / break rules)
 
-## 📸 Screenshots
+## Screenshots
 
----
+### Landing Page
+<p align="center">
+  <img src="screenshots/landing.png" width="700">
+</p>
 
-### 🚍 Landing Page
-Modern, production-style entry point for the Metroline system.
+### Login
+<p align="center">
+  <img src="screenshots/login.jpg" width="400">
+</p>
 
-![Landing Page](screenshots/landing.png)
-<img width="800" height="1152" alt="Login" src="https://github.com/user-attachments/assets/a1839655-cb40-428a-a55d-a7edd464e48f" />
+### Dashboard
+<p align="center">
+  <img src="screenshots/dashboard.jpg" width="800">
+</p>
 
----
-
-### 🔐 Login System
-Role-based access control for Drivers, Supervisors, and Managers.
-
-![Login](screenshots/login.png)
-
----
-
-### 📊 Operations Dashboard
-SOC-style monitoring dashboard showing routes, logs, and system status.
-
-![Dashboard](screenshots/dashboard.png)
-
----
-
-### 📝 Digital Driver Log Card
-Full digital replica of the real Metroline paper log card.
-
-![Log Card](screenshots/log-card.png)
+### Log Card
+<p align="center">
+  <img src="screenshots/log-card.jpg" width="700">
+</p>
 
 
 ---
